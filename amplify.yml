@@ -10,7 +10,9 @@ frontend:
   phases:
     preBuild:
       commands:
-        - npm --prefix bucketlistapp ci
+       - nvm install 18
+       - nvm use 18
+       - npm --prefix bucketlistapp ci
     build:
       commands:
         - npm --prefix bucketlistapp run build
