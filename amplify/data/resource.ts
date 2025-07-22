@@ -7,22 +7,25 @@ specifies that any unauthenticated user can "create", "read", "update",
 and "delete" any "Todo" records.
 =========================================================================*/
 const schema = a.schema({
-  Todo: a
+  BucketItem: a
     .model({
-      content: a.string(),
+      title: a.string(),
+      description: a.string(),
+      image: a.string(),
     })
-    .authorization((allow) => [allow.guest()]),
+    .authorization((allow) => [allow.owner()]),  // Restrict access to the owner
 });
 
+
 export type Schema = ClientSchema<typeof schema>;
+
 
 export const data = defineData({
   schema,
   authorizationModes: {
-    defaultAuthorizationMode: 'identityPool',
+    defaultAuthorizationMode: 'userPool',
   },
 });
-
 /*== STEP 2 ===============================================================
 Go to your frontend source code. From your client-side code, generate a
 Data client to make CRUDL requests to your table. (THIS SNIPPET WILL ONLY
